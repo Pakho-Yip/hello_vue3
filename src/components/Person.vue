@@ -11,23 +11,28 @@
 <script lang="ts">
   export default {
     name: 'Person',
-    data(){
-        return{
-            name: 'zhangsan',
-            age: 18,
-            tel: '13788888888'
-        }
+    beforeCreate(){
+      console.log('beforeCreate')
     },
-    methods:{
-        changeName(){
-            this.name = '张三'
-        },
-        changeAge(){
-            this.age += 1
-        },
-        showTel(){
-            alert(this.tel)
-        }
+    setup(){
+      console.log('setup',this)
+      let name = 'zhangsan'
+      let age = 18
+      let tel = '13888888888'
+
+      function changeName(){
+        name = '张三'
+        console.log(name)
+      }
+      function changeAge(){
+        age += 1
+        console.log(age)
+      }
+      function showTel(){
+        alert(tel)
+      }
+
+      return {name,age,changeName,changeAge,showTel}
     }
   }
 </script>
