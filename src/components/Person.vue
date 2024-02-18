@@ -1,47 +1,49 @@
 <template>
     <div class="person">
-        <h2>姓名：{{ name }}</h2>
-        <h2>年龄：{{ age }}</h2>
-        <h2>地址：{{ addresss }}</h2>
-        <button @click="changeName">修改姓名</button>
-        <button @click="changeAge">修改年龄</button>
-        <button @click="showTel">查看联系方式</button>
+      <h2>一辆{{car.brand}}车，价值{{car.price}}万</h2>
+      <button @click="changePrice">修改价格</button>
+      <ul>
+        <li v-for="i in game" :key="i.id">{{i.name}}</li>
+      </ul>
+      <button @click="changeGame">修改第一个游戏名称</button>
+      <h2>测试：{{obj.a.b.c}}</h2>
+      <button @click="changeObj">修改测试值</button>
     </div>
 </template>
 
-<!-- <script lang="ts">
-  export default {
-    name: 'Person234'
-  }
-</script> -->
-
 <script lang="ts" setup name="Person">
-    import {ref} from 'vue'
-    // 数据，原来是写在data中的，此时的name、age、tel都不是响应式的数据
-    let name = ref('zhangsan')
-    let age = ref(18)
-    let tel = '13888888888'
-    let addresss = '浙江省杭州市余杭区天时科创园'
+    import {reactive} from 'vue'
+    let car = reactive({brand: 'Benz',price: 100})
+    let game = reactive([{
+      id:'game01',
+      name:'王者荣耀'
+    },{
+      id:'game02',
+      name:'刺客信条'
+    },{
+      id:'game03',
+      name:'原神'
+    }])
+    let obj = reactive({
+      a:{
+        b:{
+          c: 666 
+        }
+      }
+    })
 
-    console.log(1,name)
-    console.log(2,age)
-    console.log(3,tel)
-    console.log(4,addresss)
-
-
-    // 方法
-    function changeName(){
-      name.value = '张三'
-      console.log(name.value)
+    function changePrice(){
+      car.price += 10
+      console.log(car.price)
     }
-    function changeAge(){
-      age.value += 1
-      console.log(age.value)
+    function changeGame(){
+      game[0].name = '梦幻西游'
+      console.log(game)
     }
-    function showTel(){
-      alert(tel)
+    function changeObj(){
+      obj.a.b.c = 999
+      console.log(obj.a.b.c)
     }
-
 </script>
 
 
