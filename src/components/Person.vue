@@ -15,11 +15,13 @@
       console.log('beforeCreate')
     },
     setup(){
-      console.log('setup',this)
+      console.log('setup',this) //setup中的this是undefined，Vue3在弱化this了
+      // 数据，原来是写在data中的，此时的name、age、tel都不是响应式的数据
       let name = 'zhangsan'
       let age = 18
       let tel = '13888888888'
 
+      // 方法
       function changeName(){
         name = '张三'
         console.log(name)
@@ -32,6 +34,7 @@
         alert(tel)
       }
 
+      // 将数据、方法交出去，模板中才可以使用
       return {name,age,changeName,changeAge,showTel}
     }
   }
