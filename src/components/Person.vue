@@ -1,48 +1,39 @@
 <template>
     <div class="person">
       <h2>一辆{{car.brand}}车，价值{{car.price}}万</h2>
+      <button @click="changeBrand">修改品牌</button>
       <button @click="changePrice">修改价格</button>
-      <ul>
-        <li v-for="i in game" :key="i.id">{{i.name}}</li>
-      </ul>
-      <button @click="changeGame">修改第一个游戏名称</button>
-      <h2>{{obj.a.b.c}}</h2>
-      <button @click="changeObj">修改值</button>
-      <h2>{{hh}}</h2>
+      <button @click="changeCar">修改汽车</button>
+      <br>
+      <h2>{{sum}}</h2>
+      <button @click="changeSum">点我sum+1</button>
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
     import {ref,reactive} from 'vue'
-    let car = ref({brand: 'Benz',price: 100})
-    let game = ref([{
-      id:'game01',
-      name:'王者荣耀'
-    },{
-      id:'game02',
-      name:'刺客信条'
-    },{
-      id:'game03',
-      name:'原神'
-    }])
-    let obj = ref({
-      a:{
-        b:{
-          c:666
-        }
-      }
-    })
+    let car = reactive({brand: 'Benz',price: 100})
+    let sum = ref(0)
 
+    function changeBrand(){
+      // car.brand = 'BMW'
+    }
     function changePrice(){
+      // car.price += 10
+    }
+    function changeCar(){
+      // car = {brand: '三轮',price: 1} // reactive这么写页面不更新的
+      // car = reactive({brand: '三轮',price: 1}) // reactive这么写页面不更新的
+
+      // 下面这个reactive写法页面可以更新
+      Object.assign(car,{brand: '三轮',price: 1})
+
+      // car.value = {brand: '三轮',price: 1} // ref写法页面可以更新
       console.log(car)
-      car.value.price += 10
-      console.log(car.value.price)
     }
-    function changeGame(){
-      game.value[0].name = '梦幻西游'
-    }
-    function changeObj(){
-      obj.value.a.b.c = 999
+    function changeSum(){
+      sum.value += 1
+      // sum = ref(9) // reactive这么写页面不更新的
     }
 
 </script>
