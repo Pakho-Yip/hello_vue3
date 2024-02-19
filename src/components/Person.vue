@@ -1,39 +1,28 @@
 <template>
     <div class="person">
-      <h2>一辆{{car.brand}}车，价值{{car.price}}万</h2>
-      <button @click="changeBrand">修改品牌</button>
-      <button @click="changePrice">修改价格</button>
-      <button @click="changeCar">修改汽车</button>
-      <br>
-      <h2>{{sum}}</h2>
-      <button @click="changeSum">点我sum+1</button>
+      <h2>名字：{{name}}</h2>
+      <h2>年龄：{{age}},{{nl}}</h2>
+      <button @click="changeName">修改名字</button>
+      <button @click="changeAge">修改年龄</button>
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
-    import {ref,reactive} from 'vue'
-    let car = reactive({brand: 'Benz',price: 100})
-    let sum = ref(0)
+    import {reactive,toRefs,toRef} from 'vue'
 
-    function changeBrand(){
-      // car.brand = 'BMW'
-    }
-    function changePrice(){
-      // car.price += 10
-    }
-    function changeCar(){
-      // car = {brand: '三轮',price: 1} // reactive这么写页面不更新的
-      // car = reactive({brand: '三轮',price: 1}) // reactive这么写页面不更新的
+    let person = reactive({
+      name: '张三',
+      age: 18
+    })
+    let {name,age} = toRefs(person)
+    let nl = toRef(person,'age')
 
-      // 下面这个reactive写法页面可以更新
-      Object.assign(car,{brand: '三轮',price: 1})
-
-      // car.value = {brand: '三轮',price: 1} // ref写法页面可以更新
-      console.log(car)
+    function changeName(){
+      name.value += '~'
+      console.log(name.value,person.name)
     }
-    function changeSum(){
-      sum.value += 1
-      // sum = ref(9) // reactive这么写页面不更新的
+    function changeAge(){
+      age.value += 1
     }
 
 </script>
