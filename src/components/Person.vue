@@ -1,30 +1,47 @@
 <template>
     <div class="person">
-      <h2>名字：{{name}}</h2>
-      <h2>年龄：{{age}},{{nl}}</h2>
-      <button @click="changeName">修改名字</button>
-      <button @click="changeAge">修改年龄</button>
+      <h2>姓：<input v-model="firstName"></h2>
+      <h2>名：<input v-model="lastName"></h2>
+      <button @click="changeFullName">修改全名</button>
+      <h2>全名：{{fullName}}</h2>
+      <h2>全名：{{fullName}}</h2>
+      <h2>全名：{{fullName}}</h2>
+      <h2>全名：{{fullName}}</h2>
+      <h2>全名：{{fullName}}</h2>
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
-    import {reactive,toRefs,toRef} from 'vue'
+    import {ref,computed} from 'vue'
 
-    let person = reactive({
-      name: '张三',
-      age: 18
+    let firstName = ref('zhang')
+    let lastName = ref('san')
+
+    // 这么定义的fullName是一个计算属性，且是只读的
+    // let fullName = computed(() => {
+    //     console.log(1)
+    //     return firstName.value.slice(0,1).toUpperCase() + firstName.value.slice(1) + '-' + lastName.value
+    // })
+
+    // 这么定义的fullName是一个计算属性，可读可写
+    let fullName = computed({
+      get(){
+        console.log('get')
+        return firstName.value.slice(0,1).toUpperCase() + firstName.value.slice(1) + '-' + lastName.value
+      },
+      set(val){
+        console.log(val)
+        console.log('set')
+        const [str1,str2] = val.split('-')
+        firstName.value = str1
+        lastName.value = str2
+      }
     })
-    let {name,age} = toRefs(person)
-    let nl = toRef(person,'age')
 
-    function changeName(){
-      name.value += '~'
-      console.log(name.value,person.name)
+    function changeFullName(){
+      console.log('changeFullName')
+      fullName.value = 'li-si'
     }
-    function changeAge(){
-      age.value += 1
-    }
-
 </script>
 
 
