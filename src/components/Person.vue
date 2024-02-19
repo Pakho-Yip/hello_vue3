@@ -1,26 +1,35 @@
 <template>
     <div class="person">
-      <h2>和为：{{sum}}</h2>
-      <button @click="changeSum">点我sum+1</button>
+      <h2>姓名：{{person.name}}</h2>
+      <h2>年龄：{{person.age}}</h2>
+      <button @click="changeName">修改姓名</button>
+      <button @click="changeAge">修改年龄</button>
+      <button @click="changePerson">修改整个人</button>
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
   import {ref,watch} from 'vue'
 
-  let sum = ref(0)
-
-  function changeSum(){
-    sum.value += 1
-  }
-  // 监视，情况一：监视【ref】定义的【基本类型】数据
-  let stopWatch = watch(sum,(newValue,oldCalue) => {
-    console.log('watch')
-    console.log(newValue,oldCalue)
-    if(newValue >= 10){
-      stopWatch()
-    }
+  let person = ref({
+    name: '张三',
+    age: 18
   })
+
+  // 监视，情况二：监视【ref】定义的【对象类型】数据，监视的是对象的地址值，若想监视对象内部属性的变化，需要手动开启深度监听
+  watch(person,(newValue,oldValue)=>{
+    console.log('watch',newValue,oldValue)
+  },{deep:true,immediate:true})
+
+  function changeName(){
+    person.value.name += '~'
+  }
+  function changeAge(){
+    person.value.age += 1
+  }
+  function changePerson(){
+    person.value = {name: '李四', age: 90}
+  }
 </script>
 
 
