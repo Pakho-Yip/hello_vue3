@@ -1,47 +1,26 @@
 <template>
     <div class="person">
-      <h2>姓：<input v-model="firstName"></h2>
-      <h2>名：<input v-model="lastName"></h2>
-      <button @click="changeFullName">修改全名</button>
-      <h2>全名：{{fullName}}</h2>
-      <h2>全名：{{fullName}}</h2>
-      <h2>全名：{{fullName}}</h2>
-      <h2>全名：{{fullName}}</h2>
-      <h2>全名：{{fullName}}</h2>
+      <h2>和为：{{sum}}</h2>
+      <button @click="changeSum">点我sum+1</button>
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
-    import {ref,computed} from 'vue'
+  import {ref,watch} from 'vue'
 
-    let firstName = ref('zhang')
-    let lastName = ref('san')
+  let sum = ref(0)
 
-    // 这么定义的fullName是一个计算属性，且是只读的
-    // let fullName = computed(() => {
-    //     console.log(1)
-    //     return firstName.value.slice(0,1).toUpperCase() + firstName.value.slice(1) + '-' + lastName.value
-    // })
-
-    // 这么定义的fullName是一个计算属性，可读可写
-    let fullName = computed({
-      get(){
-        console.log('get')
-        return firstName.value.slice(0,1).toUpperCase() + firstName.value.slice(1) + '-' + lastName.value
-      },
-      set(val){
-        console.log(val)
-        console.log('set')
-        const [str1,str2] = val.split('-')
-        firstName.value = str1
-        lastName.value = str2
-      }
-    })
-
-    function changeFullName(){
-      console.log('changeFullName')
-      fullName.value = 'li-si'
+  function changeSum(){
+    sum.value += 1
+  }
+  // 监视，情况一：监视【ref】定义的【基本类型】数据
+  let stopWatch = watch(sum,(newValue,oldCalue) => {
+    console.log('watch')
+    console.log(newValue,oldCalue)
+    if(newValue >= 10){
+      stopWatch()
     }
+  })
 </script>
 
 
