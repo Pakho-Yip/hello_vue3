@@ -23,13 +23,8 @@
     }
   })
 
-  // 监视，情况四：监视响应式对象中的某个属性，且该属性是基本类型的，要写成函数式
-/*   watch(()=>person.name,(newValue,oldValue)=>{
-    console.log('watch',newValue,oldValue)
-  }) */
-
-  // 监视，情况四：监视响应式对象中的某个属性，且该属性是对象类型的，可以直接写，也能写函数，更推荐写函数
-  watch(()=>person.car,(newValue,oldValue)=>{
+  // 监视，情况五：监视上述的多个数据
+  watch([()=>person.name,()=>person.car.car1],(newValue,oldValue)=>{
     console.log('watch',newValue,oldValue)
   },{deep:true})
 
