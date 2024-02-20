@@ -1,45 +1,28 @@
 <template>
     <div class="person">
-      <h2>需求：当水温达到60度，或水位达到80cm时，给服务器发请求</h2>
-      <h2>当前水温：{{temp}}</h2>
-      <h2>当前水位：{{height}}</h2>
-      <button @click="changeTemp">水温+10</button>
-      <button @click="changeHeight">水位+10</button>
+      <h1>中国</h1>
+      <h2 ref="title2">浙江</h2>
+      <h3>杭州</h3>
+      <button @click="showLog">点我输出h2这个元素</button>
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
-  import {ref,watch,watchEffect} from 'vue'
+  import {ref,defineExpose} from 'vue'
 
-  let temp = ref(10)
-  let height = ref(0)
+  // 创建一个title2，用于存储ref标记的内容
+  let title2 = ref()
+  let a =ref(0)
+  let b =ref(1)
+  let c =ref(2)
 
-  function changeTemp(){
-    temp.value += 10
+
+  function showLog(){
+    // console.log(document.getElementById('title2'))
+    console.log(title2.value)
   }
-  function changeHeight(){
-    height.value += 10
-  }
 
-  // 监视 -- watch实现
-/*   watch([temp,height],(val)=>{
-    console.log(val)
-    // 从val中获取最新水温和水位
-    let [newTemp,newHeight] = val
-    // 逻辑
-    if(newTemp >= 60 || newHeight >= 80){
-      console.log('给服务器发请求')
-    }
-  })
- */
-  // 监视 -- watchEffect实现
-  watchEffect(()=>{
-    console.log('watchEffect')
-    if(temp.value >= 60 || height.value >= 80){
-      console.log('给服务器发请求')
-    }
-  })
-
+  defineExpose({a,b,c})
 </script>
 
 
