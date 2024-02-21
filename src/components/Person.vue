@@ -1,29 +1,52 @@
 <template>
     <div class="person">
-      <ul>
-        <li v-for="item in list" :key="item.id">{{item.name}}--{{item.age}}</li>
-      </ul>
+      <h2>当前和为：{{sum}}</h2>
+      <button @click="add">点我sum+1</button>
     </div>
 </template>
 
 <script lang="ts" setup name="Person">
-  import {defineProps,withDefaults} from 'vue'
+  import {ref,defineProps,onBeforeMount,onBeforeUnmount,onBeforeUpdate,onMounted,onUnmounted,onUpdated,withDefaults} from 'vue'
   import {Persons} from '@/types'
 
-  // 只接收list
-  // defineProps(['list'])
+  let sum = ref(0)
 
-  // 接受list + 限制类型
-  // defineProps<{list:Persons}>()
+  function add(){
+    sum.value += 1
+  }
 
-  // 接受list + 限制类型 + 限制必要性 + 指定默认值
-  withDefaults(defineProps<{list?:Persons}>(),{
-    list:()=>[{id:'default',name:'default',age:0}]
+  // 创建
+  console.log('子--创建')
+
+  // 挂载前
+  onBeforeMount(()=>{
+    console.log('子--挂载前')
   })
 
-  // 接受list，同时将props保存起来
-  // let x= defineProps(['list'])
-  // console.log(x.list)
+  // 挂载完毕
+  onMounted(()=>{
+    console.log('子--挂载完毕')
+  })
+
+  // 更新前
+  onBeforeUpdate(()=>{
+    console.log('子--更新前')
+  })
+
+  // 更新完毕
+  onUpdated(()=>{
+    console.log('子--更新完毕')
+  })
+
+  // 卸载前
+  onBeforeUnmount(()=>{
+    console.log('子--卸载前')
+  })
+
+  // 卸载完毕
+  onUnmounted(()=>{
+    console.log('子--卸载完毕')
+  })
 
 </script>
 
