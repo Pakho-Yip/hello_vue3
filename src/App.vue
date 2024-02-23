@@ -3,9 +3,9 @@
       <Header />
       <!-- 导航区 -->
       <div class="navigate">
-        <RouterLink to="/home" active-class="xiaozhupeiqi">首页</RouterLink>
-        <RouterLink to="/news" active-class="xiaozhupeiqi">新闻</RouterLink>
-        <RouterLink to="/about" active-class="xiaozhupeiqi">关于</RouterLink>
+        <RouterLink to="/home" active-class="active">首页</RouterLink>
+        <RouterLink to="/news" active-class="active">新闻</RouterLink>
+        <RouterLink :to="{path:'/about'}" active-class="active">关于</RouterLink>
       </div>
       <!-- 展示区 -->
       <div class="main-content">
@@ -39,7 +39,7 @@
   font-size: 18px;
   letter-spacing: 5px;
 }
-.navigate a.xiaozhupeiqi {
+.navigate a.active {
   background-color: #64967E;
   color: #ffc268;
   font-weight: 900;
