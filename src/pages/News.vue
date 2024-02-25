@@ -9,7 +9,8 @@
           <!-- 第二种写法 -->
           <RouterLink 
             :to="{
-              path:'/news/detail',
+              // path:'/news/detail',
+              name: 'xiangqing',
               query:{
                 id:item.id,
                 title:item.title,
