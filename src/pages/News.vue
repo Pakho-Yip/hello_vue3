@@ -10,10 +10,10 @@
           <RouterLink 
             :to="{
               name: 'xiangqing',
-              params:{
+              query:{
                 id:item.id,
                 title:item.title,
-                // content:item.content
+                content:item.content
               }
             }">
             {{ item.title }}
