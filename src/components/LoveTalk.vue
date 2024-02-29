@@ -14,7 +14,6 @@
     const talkState = useTalkStore()
     const {talkList} = storeToRefs(talkState)
 
-
     async function getTalk() {
         talkState.getATalk()
     }
