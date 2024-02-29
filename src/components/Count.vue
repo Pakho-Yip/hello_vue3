@@ -1,7 +1,7 @@
 <template>
     <div class="count">
-        <h2>当前和为：{{countStore.sum}}</h2>
-        <h3>欢迎来到：{{countStore.school}}，坐落于：{{countStore.address}}</h3>
+        <h2>当前和为：{{sum}}</h2>
+        <h3>欢迎来到：{{school}}，坐落于：{{address}}</h3>
         <select v-model.number="n">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -16,45 +16,21 @@
     import {ref,reactive} from 'vue'
     // 引入useCountStore
     import {useCountStore} from '@/store/count'
+    import {storeToRefs} from 'pinia'
     // 使用useCountStore，得到一个专门保存count相关的store
     const countStore = useCountStore()
-
-    // 以下两种方式都可以拿到state中的数据
-    // console.log(countStore.sum)
-    // console.log(countStore.$state.sum)
-
-
-    /* let obj = reactive({
-        a:1,
-        b:2,
-        c:ref(3)
-    })
-    let x = ref(9)
-    console.log(obj.a)
-    console.log(obj.b)
-    console.log(obj.c)
-    console.log(x.value) */
-
+    // storeToRefs只会关注store中数据，不会对方法进行ref包裹
+    const {sum,school,address} = storeToRefs(countStore)
+    console.log(storeToRefs(countStore))
 
     let n = ref(1)
 
 
     function add(){
-        // 第一种修改方式
-        // countStore.sum += 1
-
-        // 第二种修改方式
-        /* countStore.$patch({
-            sum: 5555,
-            school: '111',
-            address: '222'
-        }) */
-
-        // 第三种修改方式
         countStore.increment(n.value)
-
     }
     function minus(){
+        countStore.sum -= n.value
     }
 </script>
 
