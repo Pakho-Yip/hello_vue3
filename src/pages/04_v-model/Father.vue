@@ -1,11 +1,27 @@
 <template>
   <div class="father">
     <h3>父组件</h3>
+    <!-- v-model用在html标签上 -->
+    <!-- <input type="text" v-model="username"> -->
+    <!-- <input type="text" :value="username" @input="username = (<HTMLInputElement>$event.target).value"> -->
+
+    <!-- v-model用在组件标签上 -->
+    <AtguiguInput v-model="username"/>
+<!--     <AtguiguInput 
+      :modelValue="username" 
+      @update:modelValue="username = $event"
+    /> -->
+
+     <!--  $event到底是啥？啥时候能.target
+      对于原生事件，$event就是事件对象=====>能.target
+      对于自定义事件，$event就是触发事件时，所传递的数据=====>不能.target -->
   </div>
 </template>
 
 <script setup lang="ts" name="Father">
-	
+  import {ref} from 'vue'
+  import AtguiguInput from './AtguiguInput.vue'
+  let username = ref('zhangsan')
 </script>
 
 <style scoped>
