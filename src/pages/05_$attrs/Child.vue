@@ -1,12 +1,13 @@
 <template>
 	<div class="child">
 		<h3>子组件</h3>
-		<GrandChild/>
+		<GrandChild v-bind="$attrs"/>
 	</div>
 </template>
 
 <script setup lang="ts" name="Child">
 	import GrandChild from './GrandChild.vue'
+	// defineProps(['a'])
 </script>
 
 <style scoped>
