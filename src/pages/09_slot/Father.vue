@@ -2,16 +2,31 @@
   <div class="father">
     <h3>父组件</h3>
     <div class="content">
-      <Category title="热门游戏列表">
-        <ul>
-          <li v-for="item in games" :key="item.id">{{ item.name }}</li>
-        </ul>
+      <Category>
+        <template v-slot:s2>
+          <ul>
+            <li v-for="item in games" :key="item.id">{{ item.name }}</li>
+          </ul>
+        </template>
+        <template v-slot:s1>
+          <h2>热门游戏列表</h2>
+        </template>
       </Category>
-      <Category title="今日美食城市">
-        <img :src="imgUrl" alt=""/>
+      <Category>
+        <template v-slot:s2>
+          <img :src="imgUrl" alt=""/>
+        </template>
+        <template v-slot:s1>
+          <h2>今日美食城市</h2>
+        </template>
       </Category>
-      <Category title="今日影视推荐">
-        <video :src="videoUrl" controls></video>
+      <Category>
+        <template #s2>
+          <video :src="videoUrl" controls></video>
+        </template>
+        <template #s1>
+          <h2>今日影视推荐</h2>
+        </template>
       </Category>
     </div>
   </div>
@@ -43,5 +58,11 @@
 }
 img,video {
     width: 100%;
+}
+h2 {
+    background-color: orange;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
 }
 </style>
