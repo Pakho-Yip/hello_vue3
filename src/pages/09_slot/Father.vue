@@ -2,48 +2,33 @@
   <div class="father">
     <h3>父组件</h3>
     <div class="content">
-      <Category>
-        <template v-slot:s2>
+      <!-- 数据在子组件那边，但根据数据生成的结构，却由父亲决定
+      压岁钱在孩子那边，但根据压岁钱买的东西，却由父亲决定 -->
+      <Game>
+        <template v-slot="{youxi}">
           <ul>
-            <li v-for="item in games" :key="item.id">{{ item.name }}</li>
+            <li v-for="g in youxi" :key="g.id">{{ g.name }}</li>
           </ul>
         </template>
-        <template v-slot:s1>
-          <h2>热门游戏列表</h2>
+      </Game>
+      <Game>
+        <template v-slot="{youxi}">
+          <ol>
+            <li v-for="item in youxi" :key="item.id">{{ item.name }}</li>
+          </ol>
         </template>
-      </Category>
-      <Category>
-        <template v-slot:s2>
-          <img :src="imgUrl" alt=""/>
+      </Game>
+      <Game>
+        <template #default="{youxi}">
+            <h3 v-for="g in youxi" :key="g.id">{{ g.name }}</h3>
         </template>
-        <template v-slot:s1>
-          <h2>今日美食城市</h2>
-        </template>
-      </Category>
-      <Category>
-        <template #s2>
-          <video :src="videoUrl" controls></video>
-        </template>
-        <template #s1>
-          <h2>今日影视推荐</h2>
-        </template>
-      </Category>
+      </Game>
     </div>
   </div>
 </template>
 
 <script setup lang="ts" name="Father">
-  import Category from './Category.vue'
-  import {ref,reactive} from 'vue'
-
-  let games = reactive([
-    {id:'hfjkh01',name:'英雄联盟'},
-    {id:'hfjkh02',name:'梦幻西游'},
-    {id:'hfjkh03',name:'红色警戒'},
-    {id:'hfjkh04',name:'芒刺在背'}
-  ])
-  let imgUrl = ref('https://z1.ax1x.com/2023/11/19/piNxLo4.jpg')
-  let videoUrl = ref('https://v.youku.com/v_show/id_XNjM3MzEyOTgzMg==.html?spm=a2hja.14919748_WEBHOME_NEW.drawer3.d_zj1_1&scm=20140719.rcmd.37023.video_XNjM3MzEyOTgzMg%3D%3D')
+  import Game from './Game.vue'
 </script>
 
 <style scoped>
@@ -58,11 +43,5 @@
 }
 img,video {
     width: 100%;
-}
-h2 {
-    background-color: orange;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 800;
 }
 </style>
