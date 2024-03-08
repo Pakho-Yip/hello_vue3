@@ -1,38 +1,39 @@
 <template>
 	<div class="app">
-		<h2>姓名：{{person.name}}</h2>
-		<h2>年龄：{{person.age}}</h2>
-		<button @click="person.age += 1">修改年龄</button>
-		<hr>
-		<h2>{{ car2 }}</h2>
-		<button @click="car2.price += 10">点我价格+10</button>
-
+		<h2>{{msg}}</h2>
+		<input type="text" v-model="msg">
 	</div>
 </template>
 
 <script setup lang="ts" name="App">
-	import {reactive,toRaw,markRaw} from 'vue'
-	import mockjs from 'mockjs'
+	import {ref,customRef} from 'vue'
 
-	/* toRaw */
-	let person = reactive({
-		name: 'tony',
-		age: 18
+	// 使用Vue提供的默认ref定义响应式数据，数据一变，页面就更新
+	// let msg = ref('你好')
+
+	// 使用Vue提供的customRef定义响应式数据
+	let initValue = '你好'
+	let timer: null| NodeJS.Timeout = null;
+	// track(跟踪)、trigger(触发)
+	let msg = customRef((track, trigger)=>{
+		return  {
+			// get何时调用？ ——  msg被读取时
+			get(){
+				console.log('get')
+				track() // 告诉Vue数据msg很重要，你要对数据msg进行持续关注，一旦msg变化就去更新
+				return initValue
+			},
+			// set何时调用？ ——  msg被修改时
+			set(val){
+				clearTimeout(timer)
+				timer = setTimeout(() => {
+					console.log('set')
+					initValue = val
+					trigger() // 通知Vue一下数据msg变化了
+				}, 2000);
+			}
+		}
 	})
-	// 用于获取一个响应式对象的原始对象
-	let person2 = toRaw(person)
-	console.log('响应式对象', person)
-	console.log('原始对象', person2)
-
-	/* markRaw */
-	let car = markRaw({brand:'奔驰',price:100})
-	let car2 = reactive(car)
-	console.log(car)
-	console.log(car2)
-
-	let mockJs = markRaw(mockjs)
-	console.log(mockJs)
-
 </script>
 
 <style>
