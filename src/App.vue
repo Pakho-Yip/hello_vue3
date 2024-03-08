@@ -1,20 +1,12 @@
 <template>
     <div class="app">
         <h2>我是App组件</h2>
-        <Suspense>
-            <template v-slot:default>
-                <Child/>
-            </template>
-            <template v-slot:fallback>
-                <h2>加载中......</h2>
-            </template>
-        </Suspense>
+        <Child/>
     </div>
 </template>
 
 <script setup lang="ts" name="App">
     import Child from './Child.vue'
-    import {Suspense} from 'vue'
 </script>
 
 <style>
