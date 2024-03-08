@@ -6,34 +6,15 @@
 </template>
 
 <script setup lang="ts" name="App">
-	import {ref,customRef} from 'vue'
+	import {ref} from 'vue'
+	import useMsgRef from './useMsgRef'
 
 	// 使用Vue提供的默认ref定义响应式数据，数据一变，页面就更新
 	// let msg = ref('你好')
 
-	// 使用Vue提供的customRef定义响应式数据
-	let initValue = '你好'
-	let timer: null| NodeJS.Timeout = null;
-	// track(跟踪)、trigger(触发)
-	let msg = customRef((track, trigger)=>{
-		return  {
-			// get何时调用？ ——  msg被读取时
-			get(){
-				console.log('get')
-				track() // 告诉Vue数据msg很重要，你要对数据msg进行持续关注，一旦msg变化就去更新
-				return initValue
-			},
-			// set何时调用？ ——  msg被修改时
-			set(val){
-				clearTimeout(timer)
-				timer = setTimeout(() => {
-					console.log('set')
-					initValue = val
-					trigger() // 通知Vue一下数据msg变化了
-				}, 2000);
-			}
-		}
-	})
+	// 使用useMsgRef来定义一个响应式数据且有延迟效果
+	let {msg} = useMsgRef('你好',2000)
+
 </script>
 
 <style>
